@@ -1,5 +1,5 @@
 function getComputerChoice() {
-    num = Math.floor(Math.random() * 3);
+    const num = Math.floor(Math.random() * 3);
     if (num === 0) {
         return "rock"
     } else if (num === 1) {
@@ -10,8 +10,14 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-    const player = prompt("Rock, paper, or scissors?");
-    return player.toLowerCase()
+    let player;
+    while (true) {
+        player = prompt("Rock, paper, or scissors?");
+        if (player && ["rock", "paper", "scissors"].includes(player.toLowerCase())) {
+            return player.toLowerCase();
+        }
+        alert("Invalid choice. Please enter 'rock', 'paper', or 'scissors'.");
+    }
 }
 
 function capitalize(str) {
