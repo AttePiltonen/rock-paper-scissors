@@ -40,12 +40,36 @@ function playGame() {
             computerScore++;
         }
         updateScores();
+        checkWinner();
     }
     
     function updateScores() {
         scoreText.textContent = `You: ${humanScore} - Artificial Intelligence: ${computerScore}`;
     }
     
+    function checkWinner() {
+        if (humanScore === 5) {
+            const winnerText = document.createElement("p");
+            winnerText.textContent = "Congratulations! You won the game!";
+            results.appendChild(winnerText);
+            disableButtons();
+        }else if (computerScore === 5) {
+            const winnerText = document.createElement("p");
+            winnerText.textContent = "AI wins! Better luck next time!";
+            results.appendChild(winnerText);
+            disableButtons();
+        }
+    }
+
+    function disableButtons() {
+        rock.disabled = true;
+        paper.disabled = true;
+        scissors.disabled = true;
+        const refresh = document.createElement("h3");
+        refresh.textContent = "Refresh the page to play again.";
+        results.appendChild(refresh);
+    }
+
     let humanScore = 0;
     let computerScore = 0;
 
