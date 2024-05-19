@@ -18,24 +18,32 @@ function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
-// Function to play a single round of the game
-
 // Function to play the game
 function playGame() {
+    // Function to play a single round of the game
     function playRound(playerChoice, computerChoice) {
+        const resultText = document.createElement("p");
         if (playerChoice === computerChoice) {
-            console.log("It's a tie!");
+            resultText.textContent = "It's a tie!";
+            results.appendChild(resultText);
             return;
         }
         if ((playerChoice === 'rock' && computerChoice === 'scissors') ||
             (playerChoice === 'paper' && computerChoice === 'rock') ||
             (playerChoice === 'scissors' && computerChoice === 'paper')) {
-            console.log(`You win! ${capitalize(playerChoice)} beats ${computerChoice}.`);
+            resultText.textContent = `You win! ${capitalize(playerChoice)} beats ${computerChoice}.`;
+            results.appendChild(resultText);
             humanScore++;
         } else {
-            console.log(`You lose! ${capitalize(computerChoice)} beats ${playerChoice}.`);
+            resultText.textContent = `You lose! ${capitalize(computerChoice)} beats ${playerChoice}.`;
+            results.appendChild(resultText);
             computerScore++;
         }
+        updateScores();
+    }
+    
+    function updateScores() {
+        scoreText.textContent = `You: ${humanScore} - Artificial Intelligence: ${computerScore}`;
     }
     
     let humanScore = 0;
@@ -44,6 +52,10 @@ function playGame() {
     const rock = document.querySelector(".rock");
     const paper = document.querySelector(".paper");
     const scissors = document.querySelector(".scissors");
+    const results = document.querySelector(".results");
+    const scoreText = document.createElement("p");
+    results.appendChild(scoreText);
+    updateScores();
 
     rock.addEventListener("click", () => {
         const computerChoice = getComputerChoice();
