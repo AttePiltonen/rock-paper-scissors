@@ -1,38 +1,31 @@
+// Function to get the computer's choice
 function getComputerChoice() {
     const num = Math.floor(Math.random() * 3);
     if (num === 0) {
-        return "rock"
+        return "rock";
     } else if (num === 1) {
-        return "paper"
+        return "paper";
     } else {
-        return "scissors"
+        return "scissors";
     }
 }
 
-function getHumanChoice() {
-    let player;
-    while (true) {
-        player = prompt("Rock, paper, or scissors?");
-        if (player && ["rock", "paper", "scissors"].includes(player.toLowerCase())) {
-            return player.toLowerCase();
-        }
-        alert("Invalid choice. Please enter 'rock', 'paper', or 'scissors'.");
-    }
-}
-
+// Function to capitalize the first letter of a string
 function capitalize(str) {
     if (typeof str !== 'string' || str.length === 0) {
-      return '';
+        return '';
     }
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-  }
+}
 
+// Function to play a single round of the game
 
+// Function to play the game
 function playGame() {
     function playRound(playerChoice, computerChoice) {
         if (playerChoice === computerChoice) {
             console.log("It's a tie!");
-            return
+            return;
         }
         if ((playerChoice === 'rock' && computerChoice === 'scissors') ||
             (playerChoice === 'paper' && computerChoice === 'rock') ||
@@ -40,26 +33,33 @@ function playGame() {
             console.log(`You win! ${capitalize(playerChoice)} beats ${computerChoice}.`);
             humanScore++;
         } else {
-        console.log(`You lose! ${capitalize(computerChoice)} beats ${playerChoice}.`);
-        computerScore++;
+            console.log(`You lose! ${capitalize(computerChoice)} beats ${playerChoice}.`);
+            computerScore++;
         }
-      }
+    }
+    
     let humanScore = 0;
     let computerScore = 0;
-    
-    for (let i = 0; i < 5; i++) {
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-        playRound(humanSelection, computerSelection);    
-    }
-    if (humanScore === computerScore) {
-        console.log("It's a tie!")
-    } else if (humanScore < computerScore) {
-        console.log("Computer wins!")
-    } else {
-        console.log("You win!")
-    }
+
+    const rock = document.querySelector(".rock");
+    const paper = document.querySelector(".paper");
+    const scissors = document.querySelector(".scissors");
+
+    rock.addEventListener("click", () => {
+        const computerChoice = getComputerChoice();
+        playRound("rock", computerChoice);
+    });
+
+    paper.addEventListener("click", () => {
+        const computerChoice = getComputerChoice();
+        playRound("paper", computerChoice);
+    });
+
+    scissors.addEventListener("click", () => {
+        const computerChoice = getComputerChoice();
+        playRound("scissors", computerChoice);
+    });
 }
-  
+
+// Initialize the game
 playGame();
-  
