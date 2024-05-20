@@ -43,33 +43,50 @@ function playGame() {
         checkWinner();
     }
     
+    // Function to update the scores on the page
     function updateScores() {
         scoreText.textContent = `You: ${humanScore} - Artificial Intelligence: ${computerScore}`;
     }
     
+    // Function to check if there is a winner
     function checkWinner() {
         if (humanScore === 5) {
             const winnerText = document.createElement("p");
             winnerText.textContent = "Congratulations! You won the game!";
             results.appendChild(winnerText);
             disableButtons();
-        }else if (computerScore === 5) {
+        } else if (computerScore === 5) {
             const winnerText = document.createElement("p");
             winnerText.textContent = "AI wins! Better luck next time!";
             results.appendChild(winnerText);
             disableButtons();
         }
     }
+    
+    // Function to reset the game
+    function resetGame() {
+        humanScore = 0;
+        computerScore = 0;
+        results.innerHTML = '';
+        updateScores();
+        enableButtons();
+        results.appendChild(scoreText);
+    }
 
+    // Function to disable the buttons when the game ends
     function disableButtons() {
         rock.disabled = true;
         paper.disabled = true;
         scissors.disabled = true;
-        const refresh = document.createElement("h3");
-        refresh.textContent = "Refresh the page to play again.";
-        results.appendChild(refresh);
     }
-
+    
+    // Function to enable the buttons
+    function enableButtons() {
+        rock.disabled = false;
+        paper.disabled = false;
+        scissors.disabled = false;
+    }
+    
     let humanScore = 0;
     let computerScore = 0;
 
@@ -79,6 +96,9 @@ function playGame() {
     const results = document.querySelector(".results");
     const scoreText = document.createElement("p");
     results.appendChild(scoreText);
+    const resetButton = document.querySelector(".reset");
+    resetButton.addEventListener("click", resetGame);
+
     updateScores();
 
     rock.addEventListener("click", () => {
